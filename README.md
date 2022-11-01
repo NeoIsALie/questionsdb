@@ -2,6 +2,7 @@
 
 # Base structure
 
+```
 .
 ├── app
 │   ├── database
@@ -14,3 +15,4 @@
 ├── Dockerfile
 ├── docs
 └── README.md
+```
