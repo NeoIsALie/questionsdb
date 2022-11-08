@@ -9,10 +9,10 @@
 │   ├── interface
 │   ├── logger
 │   ├── server_func
-│   ├── start.py
-│   └── user_func
+│   ├── user_func
+│   └── start.py
+├── docs
 ├── docker-compose.yml
 ├── Dockerfile
-├── docs
 └── README.md
 ```
