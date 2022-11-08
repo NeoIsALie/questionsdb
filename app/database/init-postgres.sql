@@ -14,30 +14,31 @@ create table literature (
 
 create table questions (
     id bigserial,
-    question varchar(256) not null,
-    answer varchar(256) not null,
+    question varchar not null,
+    answer varchar not null,
     literature_id references literature(id)
 )
 
 create table jobs (
     id serial,
     title varchar(256) not null,
-    definition varchar(256)
+    definition varchar
 )
 
 create table companies (
     id serial,
-    title varchar(256) not null,
-    definition varchar(256),
+    title varchar not null,
+    definition varchar,
     attitude numeric(1, 1)
 )
 
 create table keywords (
-    id serial
+    id serial,
+    keyword text
 )
 
 create table unification (
-    id serial,
+    id bigserial,
     job references jobs(id),
     company references companies(id),
     kwyword references keywords(id),
