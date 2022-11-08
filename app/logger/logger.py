@@ -46,7 +46,7 @@ CONFIG = {
 logging.config.dictConfig(CONFIG)
 
 
-class local_logging:
+class LocalLogging:
     def __init__(self, logger: str) -> None:
         self.logger = logging.getLogger(logger)
 
@@ -57,4 +57,4 @@ class local_logging:
         self.logger.warning(*args, **kwargs)
 
     def critical(self, *args, **kwargs) -> None:
-        self.logger.warning(*args, **kwargs)
+        self.logger.critical(*args, **kwargs)

@@ -1,1 +1,1 @@
-from .logger import local_logging
+from .logger import LocalLogging
