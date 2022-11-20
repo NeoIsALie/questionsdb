@@ -19,3 +19,4 @@ class QuestionsBodySchema(BaseModel):
 class ManyFieldFilterSchema(BaseModel):
     company_name: str = None
     job_name: str = None
+
