@@ -2,8 +2,6 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from app.api import service
-from app.api.schemas import ManyFieldFilterSchema, QuestionBodySchema, \
-    QuestionsBodySchema, IdFilterSchema
 
 router = APIRouter()
 
@@ -15,64 +13,63 @@ def ping():
 
 @router.post("/questions")
 def questions(
-        body: QuestionsBodySchema,
-        db: Session = Depends(get_db)
+        db: Session = Depends(get_db),
+        company_name: str = None,
+        job_name: str = None
 ):
-    filters = ManyFieldFilterSchema(
-        company_name=body.company_name,
-        job_name=body.job_name,
-    )
-    return service.get_questions(db, filters)
+    return service.get_questions(db, company_name, job_name)
 
 
 @router.get("/questions/{question_id}")
 def question(
-        question_id: int,
-        body: QuestionBodySchema,
-        db: Session = Depends(get_db)
+        db: Session = Depends(get_db),
+        question_id: int
 ):
-    filters = IdFilterSchema(
-        question_id=question_id
-    )
-    return service.get_question(db, filters)
+    return service.get_question(db, question_id)
 
 
 @router.post("/questions/")
 def add_question(**kwargs):
     return service.post_question(**kwargs)
 
+@router.delete("/questions/{id}")
+def delete_question(
+        db: Session = Depends(get_db),
+        question_id: int
+):
+    return service.delete_question(db, question_id)
+
 
 @router.post("/companies")
 def companies(
-        body: CompanyBodySchema,
-        db: Session = Depends(get_db)
+        db: Session = Depends(get_db),
+        attitude: int = None
 ):
-    filters = ManyFieldFilterSchema(
-        attitude=body.attitude,
-    )
-    return service.get_companies(db, filters)
+    return service.get_companies(db, attitude)
 
 
 @router.get("/companies/{company_id}")
 def company(
-        company_id: int,
-        body: CompanyBodySchema,
-        db: Session = Depends(get_db)
+        db: Session = Depends(get_db),
+        company_id: int
 ):
-    filters = IdFilterSchema(
-        question_id=company_id
-    )
-    return service.get_company(db, filters)
+    return service.get_company(db, company_id)
 
 
 @router.post("/companies/")
 def add_question(**kwargs):
     return service.post_company(**kwargs)
 
+@router.delete("/companies/{id}")
+def delete_company(
+        db: Session = Depends(get_db),
+        company_id: int
+):
+    return service.delete_company(db, company_id)
+
 
 @router.get("/literature")
 def literature(
-        body: LiteratureSchema,
         db: Depends(get_db)
 ):
     return service.get_literature(db)
@@ -80,10 +77,10 @@ def literature(
 
 @router.get("/literature/{literature_id}")
 def get_book(
+        db: Depends(get_db),
         literature_id: int,
-        db: Depends(get_db)
 ):
-    return service.get_book(literature_id, db)
+    return service.get_book(db, literature_id)
 
 
 @router.post("/literature/")
@@ -92,6 +89,12 @@ def add_literature(
 ):
     return service.add_book(**kwargs)
 
+@router.delete("/literature/{id}")
+def delete_question(
+        db: Session = Depends(get_db),
+        literature_id: int
+):
+    return service.delete_book(db, literature_id)
 
 @router.get("/jobs")
 def get_jobs(
@@ -102,15 +105,22 @@ def get_jobs(
 
 @router.get("/jobs/{job_id}")
 def get_job(
-        job_id: int,
-        db: Depends(get_db)
+        db: Depends(get_db),
+        job_id: int
 ):
-    return service.get_job(job_id, db)
+    return service.get_job(db, job_id)
 
 
 @router.post("/jobs/")
 def add_job(**kwargs):
     return service.post_job(**kwargs)
+
+@router.delete("/jobs/{id}")
+def delete_question(
+        db: Session = Depends(get_db),
+        job_id: int
+):
+    return service.delete_job(db, job_id)
 
 
 @router.get("/keywords")
@@ -121,8 +131,12 @@ def get_keywords(
 
 
 @router.post("/keywords/")
-def add_keyword(
-        **kwargs
-):
+def add_keyword(**kwargs):
     return service.post_keyword(**kwargs)
 
+@router.delete("/keywords/{id}")
+def delete_question(
+        db: Session = Depends(get_db),
+        keyword_id: int
+):
+    return service.delete_keyword(db, keyword_id)

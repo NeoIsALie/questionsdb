@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    image: app-dev
+    build:
+      context: .
+      dockerfile: ./docker/development/Dockerfile
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - POSTGRES_DATABASE_URI=postgresql://username:password@postgres:5432/questionsdb
+
+    networks:
+      app-network:
