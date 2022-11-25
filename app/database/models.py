@@ -24,8 +24,8 @@ class Company(Base):
     __tablename__ = "companies"
 
     id = sa.Column(sa.Integer, primary_key=True, autoincrement=True)
-    title = sa.Column(sa.String)
-    definition = sa.Column(sa.String, nullable=True)
+    title = sa.Column(sa.String(256))
+    definition = sa.Column(sa.Text, nullable=True)
     attitude = sa.Column(sa.types.Numeric(1, 1), nullable=True)
 
 
