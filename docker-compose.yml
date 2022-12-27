@@ -11,6 +11,16 @@ services:
     environment:
       - PYTHONDONTWRITEBYTECODE=1
       - POSTGRES_DATABASE_URI=postgresql://username:password@postgres:5432/questionsdb
-
+  postgres:
+    image: postgres:14.6-alpine
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=questionsdb
+    ports:
+      - "5432:5432"
     networks:
-      app-network:
+      - app-network
+
+networks:
+  app-network:
