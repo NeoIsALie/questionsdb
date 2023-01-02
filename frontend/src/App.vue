@@ -1,5 +1,18 @@
 <template>
   <app-header />
+  <section>
+    <BurgerButton
+      :active="isActive"
+      @click="() => isActive = !isActive"
+    />
+
+    <BurgerButton
+      :active="!isActive"
+      @click="() => isActive = !isActive"
+    />
+  </section>
+  <router-view/>
+  <app-footer />
 </template>
 
 <style>
@@ -27,10 +40,17 @@ nav a.router-link-exact-active {
 
 <script>
 import AppHeader from '@/components/AppHeader.vue';
+import AppFooter from '@/components/AppFooter.vue';
+import BurgerButton from '@/components/BurgerButton.vue';
 
 export default {
   components: {
+    AppFooter,
     AppHeader,
+    BurgerButton,
   },
+  data: () => ({ isActive: false }),
 };
 </script>
+
+
